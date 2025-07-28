@@ -30,6 +30,10 @@ public class Animal {
         this.animalId = animalId;
     }
 
+    //Constructor for the DTO
+    public Animal(int id, String type, String breed, String name, int age, float weight, boolean neutered, String health, LocalDate admitted, String gender, int donorId) {
+    }
+
     //Getters
     public int getAnimalId() {
         return animalId;
