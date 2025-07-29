@@ -15,4 +15,7 @@ public interface AnimalDao {
 
     //Feature 3
     Animal deleteAnimalById(int id) throws SQLException;
+
+    //Feature 4
+    Animal createAnimal(Animal animal) throws SQLException;
 }

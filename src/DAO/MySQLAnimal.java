@@ -69,4 +69,34 @@ public class MySQLAnimal extends MySQL {
             pstmt.executeUpdate();
         }
     }
+
+    //Feature 4 - Creating animal
+    public int createAnimal(Animal animal) throws SQLException {
+        String query =  "INSERT INTO animal (type, breed, name, age, weight, neutered, health, admitted, gender, donor_id) " +
+                "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection con = getConnection();
+             PreparedStatement pstmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, animal.getType());
+            pstmt.setString(2, animal.getBreed());
+            pstmt.setString(3, animal.getName());
+            pstmt.setInt(4, animal.getAge());
+            pstmt.setFloat(5, animal.getWeight());
+            pstmt.setBoolean(6, animal.isNeutered());
+            pstmt.setString(7, animal.getHealth());
+            pstmt.setDate(8, Date.valueOf(animal.getAdmitted()));
+            pstmt.setString(9, animal.getGender());
+            pstmt.setInt(10, animal.getDonorId());
+
+            pstmt.executeUpdate();
+
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Failed to insert new animal");
+                }
+            }
+        }
+    }
 }

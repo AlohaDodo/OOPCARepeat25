@@ -14,6 +14,13 @@ public class Donor {
         this.telephone = telephone;
     }
 
+    //Feature 4 - Constructor for adding a new Donor without ID - will auto assign ID
+    public Donor(String firstName, String lastName, String telephone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.telephone = telephone;
+    }
+
     //Getters
     public String getTelephone() {
         return telephone;

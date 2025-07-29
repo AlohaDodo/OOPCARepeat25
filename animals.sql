@@ -1,5 +1,5 @@
 CREATE TABLE `DONOR` (
-    `ID` int(4) NOT NULL,
+    `ID` int NOT NULL AUTO_INCREMENT,
     `FIRST_NAME` varchar(30) NOT NULL,
     `SECOND_NAME` varchar(30) NOT NULL,
     `TELENUMBER` varchar(11) NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE `DONOR` (
 );
 
 CREATE TABLE `ANIMAL` (
-    `ID` int(4) NOT NULL,
+    `ID` int NOT NULL AUTO_INCREMENT,
     `TYPE` varchar(30) NOT NULL,
     `BREED` varchar(30) NOT NULL,
     `NAME` varchar(30) NOT NULL,

@@ -15,9 +15,23 @@ public class Animal {
     private String gender;
     private int donorId;
 
-    //Constructor
+    //Constructor with an animal ID - for reading off the database
     public Animal(int animalId, String type, String breed, String name, int age, float weight, boolean neutered, String health, LocalDate admitted, String gender, int donorId) {
         this.animalId = animalId;
+        this.type = type;
+        this.breed = breed;
+        this.name = name;
+        this.age = age;
+        this.weight = weight;
+        this.neutered = neutered;
+        this.health = health;
+        this.admitted = admitted;
+        this.gender = gender;
+        this.donorId = donorId;
+    }
+
+    //Feature 4 - Constructor without the animal ID so I can assign the ID automatically when a new animal is made
+    public Animal(String type, String breed, String name, int age, float weight, boolean neutered, String health, LocalDate admitted, String gender, int donorId){
         this.type = type;
         this.breed = breed;
         this.name = name;
