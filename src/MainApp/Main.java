@@ -27,6 +27,8 @@ public class Main {
             System.out.println("Menu:");
             System.out.println("1) Display all animals");
             System.out.println("2) Filter out animal by ID");
+            System.out.println("3) Delete an animal by ID");
+            System.out.println("4) Exit");
 
             System.out.println("Enter your input: ");
 
@@ -35,7 +37,8 @@ public class Main {
             switch (input) {
                 case 1 -> getAllAnimals();
                 case 2 -> getAnimalById();
-                case 3 -> {
+                case 3 -> deleteAnimalById();
+                case 4 -> {
                     System.out.println("Finished");
                     return;
                 }
@@ -71,6 +74,28 @@ public class Main {
             else {
                 System.out.println("Animal not found");
             }
+        }
+        catch (SQLException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    //Feature 3 - Delete animal by Id - DRY : inputting id in the try function
+    private void deleteAnimalById() {
+        System.out.println("Enter animal ID you would like to delete: ");
+        int id;
+
+        try{
+            id = keyboard.nextInt();
+        }
+        catch (Exception e){
+            System.out.println("Invalid input. Enter a valid ID");
+            return;
+        }
+
+        try{
+            animal.deleteAnimalById(id);
+            System.out.println("Animal deleted");
         }
         catch (SQLException e){
             System.out.println("Error: " + e.getMessage());

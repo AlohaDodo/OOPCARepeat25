@@ -58,4 +58,15 @@ public class MySQLAnimal extends MySQL {
         }
         return null;
     }
+
+    //Feature 3 - Delete animal by ID
+    public void deleteAnimalById(int id) throws SQLException {
+        String query = "DELETE FROM animal WHERE id = ?";
+
+        try (Connection con = getConnection();
+        PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        }
+    }
 }
