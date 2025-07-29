@@ -8,4 +8,5 @@ import Exceptions.DaoException;
 
 public interface AnimalDao {
     List<Animal> getAllAnimals() throws SQLException;
+    Animal getAnimalById(int id) throws SQLException;
 }

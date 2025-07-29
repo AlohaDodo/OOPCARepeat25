@@ -42,4 +42,20 @@ public class MySQLAnimal extends MySQL {
                 return animals;
             }
     }
+
+    //Feature 2 - Filtering out animal by ID
+    public Animal getAnimalById(int id) throws SQLException {
+        String query = "SELECT * FROM animal WHERE id = ?";
+
+        try (Connection con = getConnection();
+        PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if(rs.next()){
+                    return extractAnimalFromResultSet(rs);
+                }
+            }
+        }
+        return null;
+    }
 }

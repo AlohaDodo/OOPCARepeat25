@@ -26,6 +26,7 @@ public class Main {
             System.out.println("Welcome to our Animal Shelter");
             System.out.println("Menu:");
             System.out.println("1) Display all animals");
+            System.out.println("2) Filter out animal by ID");
 
             System.out.println("Enter your input: ");
 
@@ -33,8 +34,9 @@ public class Main {
 
             switch (input) {
                 case 1 -> getAllAnimals();
-                case 2 -> {
-                    System.out.println("Finsihed");
+                case 2 -> getAnimalById();
+                case 3 -> {
+                    System.out.println("Finished");
                     return;
                 }
                 default -> System.out.println("Invalid input");
@@ -42,7 +44,6 @@ public class Main {
         }
     }
 
-    //FIX THE FEATURE ITS NOT BRINGING THROUGH THE DATA XX
     //Feature 1 - Get all entities (in this case animals)
     private void getAllAnimals() {
         try {
@@ -53,6 +54,25 @@ public class Main {
                 animals.forEach(System.out::println);
             }
         } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    //Feature 2 - Filter animal by a single ID
+    private void getAnimalById() {
+        System.out.println("Enter animal ID you would like to filter: ");
+        int id = keyboard.nextInt();
+
+        try{
+            Animal animalById = animal.getAnimalById(id);
+            if (animalById != null) {
+                System.out.println(animalById);
+            }
+            else {
+                System.out.println("Animal not found");
+            }
+        }
+        catch (SQLException e){
             System.out.println("Error: " + e.getMessage());
         }
     }
