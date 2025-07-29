@@ -16,22 +16,18 @@ public class Animal {
     private int donorId;
 
     //Constructor
-    public Animal(int donorId, String gender, LocalDate admitted, String health, boolean neutered, float weight, int age, String name, String breed, String type, int animalId) {
-        this.donorId = donorId;
-        this.gender = gender;
-        this.admitted = admitted;
-        this.health = health;
-        this.neutered = neutered;
-        this.weight = weight;
-        this.age = age;
-        this.name = name;
-        this.breed = breed;
-        this.type = type;
+    public Animal(int animalId, String type, String breed, String name, int age, float weight, boolean neutered, String health, LocalDate admitted, String gender, int donorId) {
         this.animalId = animalId;
-    }
-
-    //Constructor for the DTO
-    public Animal(int id, String type, String breed, String name, int age, float weight, boolean neutered, String health, LocalDate admitted, String gender, int donorId) {
+        this.type = type;
+        this.breed = breed;
+        this.name = name;
+        this.age = age;
+        this.weight = weight;
+        this.neutered = neutered;
+        this.health = health;
+        this.admitted = admitted;
+        this.gender = gender;
+        this.donorId = donorId;
     }
 
     //Getters

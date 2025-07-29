@@ -46,14 +46,14 @@ public class Main {
     //Feature 1 - Get all entities (in this case animals)
     private void getAllAnimals() {
         try {
-            List<Animal> animals = animal.getAllAnimals(); // use the instance
+            List<Animal> animals = animal.getAllAnimals();
             if (animals.isEmpty()) {
                 System.out.println("No animals found");
             } else {
                 animals.forEach(System.out::println);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // or better: log it properly
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

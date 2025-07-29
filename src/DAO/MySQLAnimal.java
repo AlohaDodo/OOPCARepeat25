@@ -3,10 +3,7 @@ package DAO;
 import DTO.Animal;
 import DAO.AnimalDao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,13 +32,14 @@ public class MySQLAnimal extends MySQL {
         List<Animal> animals = new ArrayList<>();
 
         try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(query);
-
-             ResultSet rs = ps.executeQuery();) {
-            while (rs.next()) {
-                animals.add(extractAnimalFromResultSet(rs));
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query);)
+            {
+                while (rs.next())
+                    {
+                        animals.add(extractAnimalFromResultSet(rs));
+                    }
+                return animals;
             }
-            return animals;
-        }
     }
 }
