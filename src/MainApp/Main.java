@@ -2,17 +2,14 @@ package MainApp;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import DAO.AnimalDao;
-import DAO.DonorDao;
 import DAO.MySQLAnimal;
 import DAO.MySQLDonor;
 import DTO.Animal;
 import DTO.Donor;
-
-import java.util.Scanner;
 
 public class Main {
 
@@ -32,7 +29,8 @@ public class Main {
             System.out.println("2) Filter out animal by ID");
             System.out.println("3) Delete an animal by ID");
             System.out.println("4) Add a new animal");
-            System.out.println("5) Exit");
+            System.out.println("5) Filter out a Donor by second name");
+            System.out.println("6) Exit");
 
             System.out.println("Enter your input: ");
 
@@ -43,7 +41,8 @@ public class Main {
                 case 2 -> getAnimalById();
                 case 3 -> deleteAnimalById();
                 case 4 -> addAnimal();
-                case 5 -> {
+                case 5 -> filteringSecondName();
+                case 6 -> {
                     System.out.println("Finished");
                     return;
                 }
@@ -71,16 +70,14 @@ public class Main {
         System.out.println("Enter animal ID you would like to filter: ");
         int id = keyboard.nextInt();
 
-        try{
+        try {
             Animal animalById = animal.getAnimalById(id);
             if (animalById != null) {
                 System.out.println(animalById);
-            }
-            else {
+            } else {
                 System.out.println("Animal not found");
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
@@ -90,26 +87,24 @@ public class Main {
         System.out.println("Enter animal ID you would like to delete: ");
         int id;
 
-        try{
+        try {
             id = keyboard.nextInt();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Invalid input. Enter a valid ID");
             return;
         }
 
-        try{
+        try {
             animal.deleteAnimalById(id);
             System.out.println("Animal deleted");
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
     //Feature 4 - Add a new animal into the database and assigns new ID for it(Doesn't update the animals.sql)
     private void addAnimal() {
-        try{
+        try {
             System.out.println("An ID will auto assign at the end.");
             System.out.println("Enter type: ");
             String type = keyboard.next();
@@ -164,9 +159,7 @@ public class Main {
                 MySQLDonor donorDao = new MySQLDonor();
                 donorId = donorDao.createDonor(newDonor);
                 System.out.println("Donor added. ID: " + donorId);
-            }
-
-            else if (donorRegistered == 2) {
+            } else if (donorRegistered == 2) {
                 System.out.println("Enter the donor's ID: ");
                 donorId = keyboard.nextInt();
                 keyboard.nextLine();
@@ -182,5 +175,29 @@ public class Main {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
+    //Feature 5 - Filtering donors second name
+    private void filteringSecondName() {
+        System.out.println("You have chosen to filter out donor's second name.");
+        System.out.println("Please enter the name you want to filer out");
+        keyboard.nextLine();
+        String secondName = keyboard.nextLine();
+
+        try {
+            List<Donor> f5 = donors.filtersecondName(secondName);
+            System.out.println("Filtered donors second names");
+
+            if (f5.size() > 0) {
+                System.out.println(f5);
+            }
+            else if (f5.size() == 0) {
+                System.out.println("No donors found");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error filtering donor second names");
+        }
+    }
+
 }
 
