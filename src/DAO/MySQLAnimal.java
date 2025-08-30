@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class MySQLAnimal extends MySQL {
     //Helper method to extract Animal from ResultSet
@@ -100,5 +102,7 @@ public class MySQLAnimal extends MySQL {
             }
         }
     }
+
+
 
 }

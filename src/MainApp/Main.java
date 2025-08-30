@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.HashSet;
 import DAO.MySQLAnimal;
 import DAO.MySQLDonor;
+import DAO.AnimalDao;
 import DTO.Animal;
 import DTO.Donor;
 
@@ -54,7 +55,8 @@ public class Main {
             System.out.println("4) Add a new animal");
             System.out.println("5) Filter out a Donor by second name");
             System.out.println("6) Build cache for animal ID and donor ID");
-            System.out.println("7) Exit");
+            System.out.println("7) Convert a list of animals into JSON String");
+            System.out.println("8) Exit");
 
             System.out.println("Enter your input: ");
 
@@ -67,7 +69,8 @@ public class Main {
                 case 4 -> addAnimal();
                 case 5 -> filteringSecondName();
                 case 6 -> cache();
-                case 7 -> {
+                case 7 -> convertListToJson();
+                case 8 -> {
                     System.out.println("Finished");
                     return;
                 }
@@ -225,7 +228,7 @@ public class Main {
         }
     }
 
-    //Feature 6 - Creating a cache using a hash map for animal ID
+    //Feature 6 - Creating a cache using a hash map for animal ID + donor id
     //I'm going to do a loop to input every animal Id into the hash map so I don't need to input every ID manually
     //especially since there is a feature that can create a new animal
     private void animalIDcache() throws SQLException {
@@ -260,6 +263,27 @@ public class Main {
     private void cache() {
         System.out.println("animalCache (how many animals there are) : " + animalCache.size() + " animalCacheId (how many animal id's there are) : " + animalCacheId.size());
         System.out.println("donorCache (how many donors there are) : " + donorCache.size() + " donorCacheId (how many donor id's there are) : " + donorCacheId.size());
+    }
+
+    //Feature 7 - Converting list to JSON
+    private void convertListToJson() {
+        try{
+            //Getting all animals
+            List<Animal> animals = animal.getAllAnimals();
+            //Checking if the list is empty or not
+            if (animals.isEmpty()) {
+                System.out.println("No animals found.");
+            }
+            //if there is contents in the list
+            else {
+                //takes the animal list into the method
+                String animalJson = Animal.animalListToJson(animals);
+                System.out.println(animalJson);
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Error converting animals to JSON");
+        }
     }
 }
 

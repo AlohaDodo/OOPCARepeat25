@@ -18,4 +18,5 @@ public interface AnimalDao {
 
     //Feature 4
     Animal createAnimal(Animal animal) throws SQLException;
+
 }

@@ -1,6 +1,10 @@
 package DTO;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class Animal {
     private int animalId;
@@ -42,6 +46,37 @@ public class Animal {
         this.admitted = admitted;
         this.gender = gender;
         this.donorId = donorId;
+    }
+
+    //Feature 7 - Convert List of Entities to a JSON String
+    //Creating method
+    public static String animalListToJson(List<Animal> animals) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
+        for(Animal animal : animals) {
+            jsonArray.put(convertToJSONObject(animal));
+        }
+
+        //Output
+        jsonObject.put("animals", jsonArray);
+        return jsonObject.toString();
+    }
+
+    private static JSONObject convertToJSONObject (Animal animal) {
+        JSONObject json = new JSONObject();
+        json.put("id", animal.getAnimalId());
+        json.put("type", animal.getType());
+        json.put("breed", animal.getBreed());
+        json.put("name", animal.getName());
+        json.put("age", animal.getAge());
+        json.put("weight", animal.getWeight());
+        json.put("neutered", animal.isNeutered());
+        json.put("health", animal.getHealth());
+        json.put("admitted", animal.admitted.toString());
+        json.put("gender", animal.getGender());
+        json.put("donorId", animal.getDonorId());
+        return json;
     }
 
     //Getters
