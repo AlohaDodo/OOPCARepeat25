@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class MySQLDonor extends MySQL implements DonorDao{
 
     @Override
@@ -76,7 +75,7 @@ public class MySQLDonor extends MySQL implements DonorDao{
     }
 
     //Feature 5 - Filtering a donors second name
-    public List<Donor> filtersecondName(String secondName) throws SQLException {
+    public List<Donor> filterSecondName(String secondName) throws SQLException {
         String query = "SELECT * FROM donor WHERE second_name LIKE ?";
         List<Donor> donorSecondNames = new ArrayList<>();
 

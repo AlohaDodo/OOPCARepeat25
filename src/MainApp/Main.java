@@ -17,8 +17,14 @@ public class Main {
     private MySQLAnimal animal = new MySQLAnimal();
     private MySQLDonor donors = new MySQLDonor();
     private Scanner keyboard = new Scanner(System.in);
+
+    //Animal ID cache
     private final Map<Integer, Animal> animalCache = new HashMap<>();
     private final Set<Integer> animalCacheId = new HashSet<>();
+
+    //Donor ID cache
+    private final Map<Integer, Donor> donorCache = new HashMap<>();
+    private final Set<Integer> donorCacheId = new HashSet<>();
 
     public static void main(String[] args) {
         //Running the program
@@ -29,8 +35,15 @@ public class Main {
         try {
             animalIDcache();    // build cache at startup
         } catch (SQLException e) {
-            System.out.println("Could not build caches: " + e.getMessage());
+            System.out.println("Could not build animal caches: " + e.getMessage());
         }
+
+        try {
+            donorIDcache();
+        } catch (SQLException e) {
+            System.out.println("Could not build donor caches: " + e.getMessage());
+        }
+
 
         while (true) {
             System.out.println("Welcome to our Animal Shelter");
@@ -197,7 +210,7 @@ public class Main {
         String secondName = keyboard.nextLine();
 
         try {
-            List<Donor> f5 = donors.filtersecondName(secondName);
+            List<Donor> f5 = donors.filterSecondName(secondName);
             System.out.println("Filtered donors second names");
 
             if (f5.size() > 0) {
@@ -229,9 +242,24 @@ public class Main {
         }
     }
 
+    private void donorIDcache() throws SQLException {
+        //Clearing the map and hash
+        donorCache.clear();
+        donorCacheId.clear();
+
+        List<Donor> Donor = donors.getAllDonors();
+
+        for (Donor donor : Donor) {
+            int id = donor.getDonorId();
+            donorCacheId.add(donor.getDonorId());
+            donorCache.put(donor.getDonorId(), donor);
+        }
+    }
+
     //Just to check if it did build up the cache
     private void cache() {
         System.out.println("animalCache (how many animals there are) : " + animalCache.size() + " animalCacheId (how many animal id's there are) : " + animalCacheId.size());
+        System.out.println("donorCache (how many donors there are) : " + donorCache.size() + " donorCacheId (how many donor id's there are) : " + donorCacheId.size());
     }
 }
 
