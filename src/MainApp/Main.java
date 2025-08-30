@@ -2,10 +2,11 @@ package MainApp;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
+import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
 import DAO.MySQLAnimal;
 import DAO.MySQLDonor;
 import DTO.Animal;
@@ -16,12 +17,21 @@ public class Main {
     private MySQLAnimal animal = new MySQLAnimal();
     private MySQLDonor donors = new MySQLDonor();
     private Scanner keyboard = new Scanner(System.in);
+    private final Map<Integer, Animal> animalCache = new HashMap<>();
+    private final Set<Integer> animalCacheId = new HashSet<>();
 
     public static void main(String[] args) {
+        //Running the program
         new Main().run();
     }
 
     public void run() {
+        try {
+            animalIDcache();    // build cache at startup
+        } catch (SQLException e) {
+            System.out.println("Could not build caches: " + e.getMessage());
+        }
+
         while (true) {
             System.out.println("Welcome to our Animal Shelter");
             System.out.println("Menu:");
@@ -30,7 +40,8 @@ public class Main {
             System.out.println("3) Delete an animal by ID");
             System.out.println("4) Add a new animal");
             System.out.println("5) Filter out a Donor by second name");
-            System.out.println("6) Exit");
+            System.out.println("6) Build cache for animal ID and donor ID");
+            System.out.println("7) Exit");
 
             System.out.println("Enter your input: ");
 
@@ -42,10 +53,12 @@ public class Main {
                 case 3 -> deleteAnimalById();
                 case 4 -> addAnimal();
                 case 5 -> filteringSecondName();
-                case 6 -> {
+                case 6 -> cache();
+                case 7 -> {
                     System.out.println("Finished");
                     return;
                 }
+
                 default -> System.out.println("Invalid input");
             }
         }
@@ -199,5 +212,26 @@ public class Main {
         }
     }
 
+    //Feature 6 - Creating a cache using a hash map for animal ID
+    //I'm going to do a loop to input every animal Id into the hash map so I don't need to input every ID manually
+    //especially since there is a feature that can create a new animal
+    private void animalIDcache() throws SQLException {
+        //Clearing the map and hash
+        animalCache.clear();
+        animalCacheId.clear();
+
+        List<Animal> animals = animal.getAllAnimals();
+
+        for (Animal animal : animals) {
+            int id = animal.getAnimalId();
+            animalCacheId.add(animal.getAnimalId());
+            animalCache.put(animal.getAnimalId(), animal);
+        }
+    }
+
+    //Just to check if it did build up the cache
+    private void cache() {
+        System.out.println("animalCache (how many animals there are) : " + animalCache.size() + " animalCacheId (how many animal id's there are) : " + animalCacheId.size());
+    }
 }
 

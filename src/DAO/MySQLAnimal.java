@@ -6,9 +6,10 @@ import DAO.AnimalDao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MySQLAnimal extends MySQL {
-
     //Helper method to extract Animal from ResultSet
     private Animal extractAnimalFromResultSet(ResultSet rs) throws SQLException {
         return new Animal(
@@ -99,4 +100,5 @@ public class MySQLAnimal extends MySQL {
             }
         }
     }
+
 }
