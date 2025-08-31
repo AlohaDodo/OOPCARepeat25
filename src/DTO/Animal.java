@@ -79,6 +79,8 @@ public class Animal {
         return json;
     }
 
+
+
     //Getters
     public int getAnimalId() {
         return animalId;

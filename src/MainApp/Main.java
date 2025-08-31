@@ -12,6 +12,7 @@ import DAO.MySQLDonor;
 import DAO.AnimalDao;
 import DTO.Animal;
 import DTO.Donor;
+import org.json.JSONObject;
 
 public class Main {
 
@@ -70,7 +71,8 @@ public class Main {
                 case 5 -> filteringSecondName();
                 case 6 -> cache();
                 case 7 -> convertListToJson();
-                case 8 -> {
+                case 8 -> findAnimalByIdJson();
+                case 9 -> {
                     System.out.println("Finished");
                     return;
                 }
@@ -283,6 +285,30 @@ public class Main {
         }
         catch (Exception e) {
             System.out.println("Error converting animals to JSON");
+        }
+    }
+
+    //Feature 8 - Find a single entity by key JSON
+    private void findAnimalByIdJson(){
+        System.out.println("Enter animal ID you would like to filter: ");
+        int id = keyboard.nextInt();
+
+        try {
+            Animal animalById = animal.getAnimalById(id);
+
+            if (animalById == null) {
+                System.out.println("No animal found");
+            }
+            else {
+                List<Animal> animalf8 = new ArrayList<>();
+                animalf8.add(animalById);
+
+                String jsonf8 = Animal.animalListToJson(animalf8);
+                System.out.println(jsonf8);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
