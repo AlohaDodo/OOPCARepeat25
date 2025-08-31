@@ -57,7 +57,8 @@ public class Main {
             System.out.println("5) Filter out a Donor by second name");
             System.out.println("6) Build cache for animal ID and donor ID");
             System.out.println("7) Convert a list of animals into JSON String");
-            System.out.println("8) Exit");
+            System.out.println("8) Find animal by ID JSON");
+            System.out.println("9) Exit");
 
             System.out.println("Enter your input: ");
 
